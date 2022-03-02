@@ -467,6 +467,7 @@ class TreeView extends HTMLElement {
                 globalUl.appendChild(this.li);
             }
             this.itemSelect();
+            this.itemRename();
         }
 
         addMenuLi.forEach((el) => {
