@@ -374,7 +374,21 @@ class TreeView extends HTMLElement {
         addBtn.addEventListener('click', (e) => {
             e.preventDefault()
             addMenu.classList.toggle('add_menu_active')
+            const items = this.shadowRoot.querySelectorAll('.item')
+            items.forEach((item) => {
+                item.addEventListener("click", (e) => {
+                    if (!addMenu.contains(e.target) && !addBtn.contains(e.target)) {
+                        addMenu.classList.remove('add_menu_active')
+                    }
+                })
+            })
         })
+        this.shadowRoot.addEventListener("click", (e) => {
+            if (!addMenu.contains(e.target) && !addBtn.contains(e.target)) {
+                addMenu.classList.remove('add_menu_active')
+            }
+        })
+
     }
 
     itemSelect() {
@@ -515,20 +529,20 @@ class TreeView extends HTMLElement {
             const input = form.querySelector(".input");
             label.addEventListener('dblclick', (e) => {
                 e.preventDefault()
-                form.classList.toggle('form_active')
+                form.classList.add('form_active')
                 const items = this.shadowRoot.querySelectorAll('.item')
                 items.forEach((item) => {
                     const input = item.querySelector('.input')
                     item.addEventListener("click", (e) => {
                         if (!input.contains(e.target)) {
-                            form.classList.toggle('form_active')
+                            form.classList.remove('form_active')
                         }
                     })
                 })
             })
             form.addEventListener("submit", (e) => {
                 e.preventDefault()
-                form.classList.toggle('form_active')
+                form.classList.remove('form_active')
                 const newLabel = input.value;
                 if (newLabel.length <= 0) {
                     alert('Имя файла не может быть пустым!')
